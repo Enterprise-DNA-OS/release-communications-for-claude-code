@@ -1,0 +1,3 @@
+Email,Categories,Region,Status,ID,Confirmed At
+imported@example.test,"Integrations,Reporting",NZ,confirmed,LN-1,2026-01-02T00:00:00Z
+left@example.test,Integrations,AU,confirmed,LN-2,2026-01-02T00:00:00Z

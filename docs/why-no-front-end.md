@@ -1,24 +1,9 @@
-# Why there is no front end
+# Why the working record has no front end
 
-LaunchNotes is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+The weekly work is to decide what is ready, clear the handover, check the audience and draft the wording. Those questions can be answered from a database. Read-only HTML shows the result. Every change happens through the CLI or an agent using it.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+A screen adds useful things this base does not provide: collaborative writing, mobile editing, a public changelog, an in-app widget, subscriber sign-in and preference forms. Delivery services add actual email, unsubscribe handling and engagement tracking. This workspace supplies none of those and makes no network calls to send.
 
-## What you gain
+Enterprise DNA can build and connect the parts your product needs. First agree the audience, identity, access, delivery and review process. Keep the existing service until that replacement works for your team.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep LaunchNotes. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/launchnotes
+An internal approval is only a recorded review of one revision. The generated files are private drafts. No record is published by changing its status here.

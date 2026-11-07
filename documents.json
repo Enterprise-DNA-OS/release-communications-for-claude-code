@@ -1,11 +1,41 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "release-brief",
+    "title": "INTERNAL DRAFT: Release readiness brief",
+    "for_each": "select id,code from releases order by code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Release",
+        "layout": "record",
+        "sql": "select code,name,summary,owner,due,revision,status from releases where id=$1"
+      },
+      {
+        "title": "Readiness",
+        "layout": "record",
+        "sql": "select open_tasks,overdue_tasks,current_approval,review_ready from release_readiness where id=$1"
+      },
+      {
+        "title": "Tasks",
+        "sql": "select code,name,owner,due,completed_at from tasks where release_id=$1 order by code"
+      },
+      {
+        "title": "Approval history",
+        "sql": "select revision,reviewer,note,created_at from approvals where release_id=$1 order by created_at"
+      }
+    ]
+  },
+  {
+    "name": "audience-review",
+    "title": "INTERNAL DRAFT: Audience consent review",
+    "for_each": "select id,code from projects order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Audience",
+        "sql": "select email,status,categories,consent_recorded from audience_readiness where project_id=$1 order by email",
+        "note": "Recorded evidence only. This report does not send messages or certify consent."
+      }
     ]
   }
 ]

@@ -1,0 +1,28 @@
+{
+  "data": {
+    "project": {
+      "exportSubscribers": {
+        "edges": [
+          {
+            "status": "confirmed",
+            "hasMailTransport": true,
+            "hasSlackTransport": false,
+            "categories": [
+              {
+                "id": "cat-1",
+                "name": "Integrations"
+              }
+            ],
+            "node": {
+              "id": "LN-3",
+              "email": "json@example.test",
+              "region": "NZ",
+              "createdAt": "2026-01-01T00:00:00Z",
+              "confirmedAt": "2026-01-02T00:00:00Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

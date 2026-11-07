@@ -1,13 +1,25 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Release Communications for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Release readiness this week",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Release decisions",
+        "sql": "select code,name,owner,due,open_tasks,current_approval,review_ready from release_readiness order by due,code"
+      },
+      {
+        "title": "Follow up",
+        "sql": "select code,kind,owner,due,reason from attention_queue order by due,code"
+      }
+    ]
+  },
+  {
+    "name": "audience",
+    "title": "Audience review",
+    "sections": [
+      {
+        "title": "Consent and preferences",
+        "sql": "select email,status,categories,consent_recorded from audience_readiness order by email"
       }
     ]
   }

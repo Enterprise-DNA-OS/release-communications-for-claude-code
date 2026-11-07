@@ -1,43 +1,42 @@
-# Release Communications for Claude Code: operating instructions
+# Release Communications for Claude Code
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+Read README.md and docs/compliance.md first. One CLI: `npm run releases -- COMMAND`. One workflow library: .claude/commands. Every answer about records starts with a fresh CLI read.
 
-## Who this is for
+Use `--project=CODE` for scoped work and `--actor="Name"` on writes. Do not guess a project, person, permission or review. Ambiguous matches list candidates. Keep suppressed people suppressed; an imported confirmed flag is not consent evidence. All output remains private. Never send, publish or upload from this workspace.
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+## Arguments
 
-Fill this in once. A worker with context knows. A worker without it guesses.
+All commands support --json. Mutations support --dry-run, which rolls back the transaction and audit writes.
 
-## How to work
+- projects: list projects without a project argument.
+- categories, releases, readiness, attention, subscribers, consent-gaps, tasks, approvals, activity, compliance, weekly-review: --project.
+- audience: --project --release=CODE.
+- add-project: --code --name [--sender-name --sender-contact --unsubscribe-url --access-review=DATE --retention-review=DATE].
+- update-project: --project and the changed fields listed above, excluding code.
+- add-category: --project --name.
+- add-release: --project --code --name [--summary --owner --due=DATE --category=NAME].
+- revise-release: --project --ref=CODE and changed --name, --summary, --owner, --due, --category or --status=draft|archived.
+- add-task: --project --release=CODE --code --name --owner --due=DATE.
+- revise-task: --project --ref=CODE and changed --name, --owner or --due.
+- complete-task: --project --ref=CODE --note.
+- add-subscriber: --project --email [--region --category=NAME --all-categories]. New records start unconfirmed.
+- record-consent: --project --ref=EMAIL --evidence="Source reference" --date=YYYY-MM-DD. Human instruction is required. Suppressed addresses cannot be reconfirmed with this command.
+- suppress: --project --ref=EMAIL --note [--status=unsubscribed|blocked].
+- approve-release: --project --ref=CODE --note. Requires current completed tasks and release details. Internal readiness only.
+- log: --project --note.
+- import launchnotes: --project --file=PATH [--map=PATH]. CSV or documented saved subscriber JSON export only. No network calls.
+- export: --project [--out=DIRECTORY]. Complete project records as JSON, including personal data and activity.
+- draft-announcement, draft-brief: --project --ref=RELEASE. Write to drafts/; never send.
+- help: command inventory.
 
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
+## Operation
 
-## Routing table: one right way for each recurring job
+Node 20+. npm install, npm run demo, npm test, npm run docs, npm run view. Never seed a production database. Tests use a temporary local database unless TEST_DATABASE_URL names an empty disposable PostgreSQL database. Never print credentials or commit imports, exports, drafts or local data.
 
-| When the operator asks for... | Use this |
-|---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
+The schema enforces same-project links, but trusted database operators can read all projects. There is no multi-user access system. Public database roles have no default grants. Keep files and backups restricted. Reports render all projects unless you use a scoped draft or export.
 
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
+## Recurring work
 
-## Hard rules
+Use the matching recipe for every command above. /weekly-review is the Monday ritual. /draft-announcement prepares wording. /draft-brief prepares the handover. /compliance checks recorded safeguards, not legal compliance. /customise adds fields and rules through migrations and tests; /new-view adds a read-only report; /docs renders the business paperwork.
 
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
-
-## Where things live
-
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off LaunchNotes.
-
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/launchnotes
+Use plain language. No em dashes or buzzwords. Never invent a source, send result, approval or consent. Do not represent the source import as a full LaunchNotes migration.

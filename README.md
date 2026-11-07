@@ -1,115 +1,98 @@
-<h1 align="center">Release Communications for Claude Code</h1>
+# Release Communications for Claude Code
 
-<p align="center">
-  <strong>The open-source release communications system that is just a database and Claude Code.</strong>
-</p>
+Your release decisions, handover tasks, announcement drafts and audience preferences in a database you own. Find what blocks the next release before the Monday meeting.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free, MIT. Install and run the demo. | Your release fields, review rules, imported history and documents. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your LaunchNotes data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=launchnotes">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/launchnotes?utm_source=github&utm_medium=readme&utm_campaign=launchnotes">How it works</a></td>
-  </tr>
-</table>
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=launchnotes) · [Instead of LaunchNotes](https://enterprisedna.co/omni/instead-of/launchnotes)
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-launchnotes">Instead of LaunchNotes</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+## Start with the release review
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Release Communications for Claude Code does the job you pay LaunchNotes for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the LaunchNotes dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays LaunchNotes per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=launchnotes).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later. Open this folder with Claude Code, Codex, OpenCode or Cursor.
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/release-communications-for-claude-code.git
-cd release-communications-for-claude-code
 npm install
 npm run demo
+npm run releases -- readiness --project=HARBOUR
+npm run releases -- audience --project=HARBOUR --release=R03
+npm run docs
+npm run view
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The fictional demo has an overdue export announcement, an unfinished handover, a ready connection-status announcement, and audience records with missing evidence and suppressed addresses. No customer data is included. Never seed your live database.
 
-### Use it with your own Postgres or Supabase
+Local PGlite needs no server. Set DATABASE_URL to use PostgreSQL 15 or later. Use a trusted database owner account. This is a trusted operator workspace, with no per-user sign-in or project access policy. Project filters prevent accidental cross-linking, not access by another trusted operator. Restrict the database, backup files and generated reports.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## The weekly rituals
 
-## The commands
+31 CLI commands and 34 workflow recipes ship. `/weekly-review` combines readiness, overdue work, consent gaps and safeguard reviews. `/readiness` shows blockers. `/audience` explains every inclusion or exclusion. `/approve-release` records a named review of the current revision. `/draft-announcement` and `/draft-brief` write private HTML drafts; nothing sends or publishes.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+Every command supports `--json`. Writes require `--actor="Your name"`; `--dry-run` rolls back the records and audit entries. Codes match exactly, names match without case and UUID prefixes work. Ambiguous references list candidates and fail. Run `npm run releases -- help` or read CLAUDE.md for arguments.
 
-| Command | What it does |
-|---|---|
-| `/...` | ... |
+## Approval follows the version
 
-## Instead of LaunchNotes
+Changing release wording, owner, date or category invalidates its approval. Adding, changing or completing a task also starts a new revision. Approval needs a summary, owner, date, category and no open tasks. It marks internal readiness only. Approval does not send anything or assert consent for an audience.
 
-<!-- TODO(author): how to bring data across from LaunchNotes; link docs/replace-launchnotes.md -->
+Audience checks require a confirmed status, dated consent evidence and a matching category or explicit all-category preference. Imported confirmation timestamps are retained as source facts, not promoted to consent evidence. Unsubscribed and blocked addresses remain suppressed after re-import. The tool never infers a right to message a person from a file. [Checks and sources](docs/compliance.md).
 
-## Architecture
+## Ten questions to ask of your own records
 
+These queries run today. They are not claims that LaunchNotes cannot answer them.
+
+1. Which release has overdue handover work? `attention`
+2. Which release has all tasks complete and a current approval? `readiness`
+3. Which approval became stale after wording changed? `readiness`
+4. Who owns each unfinished readiness task? `tasks`
+5. Which confirmed subscribers lack recorded consent evidence? `consent-gaps`
+6. Why is an address excluded from this announcement? `audience --release=R03`
+7. Which subscribers selected each category? `subscribers`
+8. Which access and retention reviews need attention? `compliance`
+9. Who changed the release and what changed? `activity`
+10. What must be reviewed before Monday's announcement? `weekly-review`
+
+## Bring your LaunchNotes audience
+
+Create a project, export the subscriber list, then import it in one command:
+
+```bash
+npm run releases -- add-project --code=PRODUCT --name="Our product" --actor="Your name"
+npm run releases -- import launchnotes --project=PRODUCT --file=imports/subscribers.csv --actor="Your name" --dry-run
+npm run releases -- import launchnotes --project=PRODUCT --file=imports/subscribers.csv --actor="Your name"
 ```
-release-communications-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
 
-## Built for coding agents
+The documented saved exportSubscribers JSON response also imports. CSV headers vary: use `--map=imports/field-map.json` if needed. The importer carries email, region, status, selected categories, source ID and confirmation date where present, with every original source field retained. An empty category list is held for review, never expanded to everyone. It does not import announcement bodies, roadmap history, feedback, attachments or delivery metrics. [Export steps and exact mapping](docs/replace-launchnotes.md).
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+Repeating an unchanged import does not duplicate subscribers or audit writes. Imports are atomic and project scoped; invalid records roll back the whole file. Imported preferences replace recorded category links; review the dry run and back up first. Suppression stays in force. Fixtures are synthetic examples built from the documentation, not exports from a paid account.
 
-## Contributing
+## Documents and views
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+Change brand.json once. `npm run docs` produces a release readiness brief per release and an audience review per project. `npm run view` produces read-only weekly and audience reports. The views and document batch include all projects in this trusted workspace. Individual drafts and exports require a project. Generated files are internal and ignored by version control.
 
-## Want it installed and run for you?
+The free base does not host a public changelog, in-app widget, subscriber sign-in, delivery service or engagement tracking. Enterprise DNA can scope those into your version. [What screens and delivery services add](docs/why-no-front-end.md).
 
-Enterprise DNA installs Release Communications for Claude Code for your business, migrates your LaunchNotes data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+## Your first hour: ten things to ask for
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=launchnotes)
-- Read more: [enterprisedna.co/omni/instead-of/launchnotes](https://enterprisedna.co/omni/instead-of/launchnotes?utm_source=github&utm_medium=readme&utm_campaign=launchnotes)
+1. Put our name on the release brief.
+2. Create a project for our product.
+3. Import a subscriber file without saving it.
+4. Map our category column.
+5. List records without a consent reference.
+6. Add our support handover check.
+7. Assign the announcement review to its owner.
+8. Show approvals that no longer match the wording.
+9. Add our rollout region field.
+10. Draft the next announcement for review.
 
-## License
+`/customise` writes and tests a migration for a new field or rule. `/new-view` adds a read-only report from existing records.
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+## Verification and operation
+
+`npm test` creates a temporary database and checks every command, repeat migration and seed, stale approvals, cross-project constraints, imports, suppression, consent, exports, escaped HTML and document rendering. CI covers Node 20 and 22 on Linux and Windows, plus PostgreSQL. Consult actual CI results before claiming a platform passed.
+
+Audit entries retain before and after values. Database administrators can alter them; this is not a tamper-proof record. Set an appropriate retention policy, restrict access, back up the database, and verify that backups can be restored. The free base does not certify legal compliance or send messages.
+
+Enterprise DNA builds your version, maps the agreed LaunchNotes data and operates it through Omni by Enterprise DNA. One setup fee, then a retainer. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=launchnotes).
+
+MIT. Not affiliated with LaunchNotes or Anthropic. Hosting and agent usage have their own costs.
