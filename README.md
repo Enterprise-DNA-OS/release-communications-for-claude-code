@@ -6,7 +6,7 @@ Your release decisions, handover tasks, announcement drafts and audience prefere
 |---|---|---|
 | Free, MIT. Install and run the demo. | Your release fields, review rules, imported history and documents. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=launchnotes) · [Instead of LaunchNotes](https://enterprisedna.co/omni/instead-of/launchnotes)
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=launchnotes) · [Instead of LaunchNotes](https://enterprisedna.co/omni/instead-of/launchnotes?utm_source=github&utm_medium=readme&utm_campaign=launchnotes)
 
 ## Start with the release review
 
